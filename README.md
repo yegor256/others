@@ -1,4 +1,4 @@
-# True Object-Oriented Decorator
+# Functions as Objects
 
 [![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/others)](http://www.rultor.com/p/yegor256/others)
 [![We recommend RubyMine](https://www.elegantobjects.org/rubymine.svg)](https://www.jetbrains.com/ruby/)
@@ -11,36 +11,14 @@
 [![Hits-of-Code](https://hitsofcode.com/github/yegor256/others)](https://hitsofcode.com/view/github/yegor256/others)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/others/blob/master/LICENSE.txt)
 
-Let's say, you have an object that you want to decorate, thus
-adding new attributes and methods to it. Here is how:
+Let's say you need an object that consists of a single function:
 
 ```ruby
 require 'others'
-s = ' Jeff Lebowski '
-d = others(s, br: ' ') do
-  def parts
-    @origin.strip.split(@br)
-  end
+x = others(foo: 42) do |*args|
+  @foo + args[1]
 end
-assert(d.parts == ['Jeff', 'Lebowski'])
-```
-
-You may also turn an existing class into a decorator:
-
-```ruby
-require 'others'
-class MyString
-  def initialize(s, br)
-    @s = s
-    @br = br
-  end
-  others(:s)
-  def parts
-    @origin.strip.split(@br)
-  end
-end
-d = MyString.new('Jeff Lebowski')
-assert(d.parts == ['Jeff', 'Lebowski'])
+assert(x.bar(10) == 52)
 ```
 
 That's it.
