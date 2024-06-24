@@ -35,6 +35,19 @@ class TestOthers < Minitest::Test
     assert_equal(43, x.bar)
   end
 
+  def test_as_function_setter
+    x = others(map: {}) do |*args|
+      k = args[0].to_s
+      if k.end_with?('=')
+        @map[k[..2]] = args[1]
+      else
+        @map[k]
+      end
+    end
+    x.foo = 42
+    assert_equal(42, x.foo)
+  end
+
   def test_as_function_with_args
     x = others(foo: 42) do |*args|
       @foo + args[1]
