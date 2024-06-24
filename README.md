@@ -21,6 +21,22 @@ end
 assert(x.bar(10) == 52)
 ```
 
+You can also do this in a class:
+
+```ruby
+require 'others'
+class Foo
+  def foo(a)
+    a + 1
+  end
+  others do |*args|
+    args[1] + 10
+  end
+end
+assert(x.foo(10) == 11)
+assert(x.bar(42) == 52)
+```
+
 That's it.
 
 ## How to contribute
