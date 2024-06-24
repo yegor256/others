@@ -50,4 +50,17 @@ class TestOthers < Minitest::Test
       x.bar { |i| i + 1 }
     end
   end
+
+  def test_as_class
+    x = Class.new do
+      def self.foo(abc)
+        abc + 1
+      end
+      others do |*args|
+        args[1] + 2
+      end
+    end
+    assert_equal(43, x.foo(42))
+    assert_equal(44, x.bar(42))
+  end
 end

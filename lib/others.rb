@@ -26,31 +26,48 @@
 # Copyright:: Copyright (c) 2024 Yegor Bugayenko
 # License:: MIT
 def others(attrs = {}, &block)
-  raise 'A block is expected' unless block_given?
-  c = Class.new do
-    def initialize(attrs, &block)
-      # rubocop:disable Style/HashEachMethods
-      # rubocop:disable Lint/UnusedBlockArgument
-      attrs.each do |k, v|
-        instance_eval("@#{k} = v", __FILE__, __LINE__) # @foo = v
-      end
-      # rubocop:enable Style/HashEachMethods
-      # rubocop:enable Lint/UnusedBlockArgument
+  if is_a?(Class)
+    class_exec(block) do
       @block = block
-    end
+      def self.method_missing(*args)
+        raise 'Block cannot be provided' if block_given?
+        instance_exec(*args, &@block)
+      end
 
-    def method_missing(*args)
-      raise 'Block cannot be provided' if block_given?
-      instance_exec(*args, &@block)
-    end
+      def self.respond_to?(_mtd, _inc = false)
+        true
+      end
 
-    def respond_to?(_mtd, _inc = false)
-      true
+      def self.respond_to_missing?(_mtd, _inc = false)
+        true
+      end
     end
+  else
+    c = Class.new do
+      def initialize(attrs, &block)
+        # rubocop:disable Style/HashEachMethods
+        # rubocop:disable Lint/UnusedBlockArgument
+        attrs.each do |k, v|
+          instance_eval("@#{k} = v", __FILE__, __LINE__) # @foo = v
+        end
+        # rubocop:enable Style/HashEachMethods
+        # rubocop:enable Lint/UnusedBlockArgument
+        @block = block
+      end
 
-    def respond_to_missing?(_mtd, _inc = false)
-      true
+      def method_missing(*args)
+        raise 'Block cannot be provided' if block_given?
+        instance_exec(*args, &@block)
+      end
+
+      def respond_to?(_mtd, _inc = false)
+        true
+      end
+
+      def respond_to_missing?(_mtd, _inc = false)
+        true
+      end
     end
+    c.new(attrs, &block)
   end
-  c.new(attrs, &block)
 end
