@@ -27,18 +27,22 @@
 # License:: MIT
 def others(attrs = {}, &block)
   if is_a?(Class)
-    class_exec(block) do
-      @block = block
-      def self.method_missing(*args)
+    class_exec(block) do |b|
+      # rubocop:disable Style/ClassVars
+      class_variable_set(:@@__others_block__, b)
+      # rubocop:enable Style/ClassVars
+
+      def method_missing(*args)
         raise 'Block cannot be provided' if block_given?
-        instance_exec(*args, &@block)
+        b = self.class.class_variable_get(:@@__others_block__)
+        instance_exec(*args, &b)
       end
 
-      def self.respond_to?(_mtd, _inc = false)
+      def respond_to?(_mtd, _inc = false)
         true
       end
 
-      def self.respond_to_missing?(_mtd, _inc = false)
+      def respond_to_missing?(_mtd, _inc = false)
         true
       end
     end

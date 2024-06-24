@@ -65,15 +65,35 @@ class TestOthers < Minitest::Test
   end
 
   def test_as_class
-    x = Class.new do
-      def self.foo(abc)
+    cx = Class.new do
+      def foo(abc)
         abc + 1
       end
       others do |*args|
         args[1] + 2
       end
     end
+    x = cx.new
     assert_equal(43, x.foo(42))
     assert_equal(44, x.bar(42))
+  end
+
+  def test_as_class_setter
+    cx = Class.new do
+      def initialize(map)
+        @map = map
+      end
+      others do |*args|
+        k = args[0].to_s
+        if k.end_with?('=')
+          @map[k[..2]] = args[1]
+        else
+          @map[k]
+        end
+      end
+    end
+    x = cx.new({})
+    x.foo = 42
+    assert_equal(42, x.foo)
   end
 end
