@@ -42,7 +42,7 @@ class TestOthers < Minitest::Test
     x = others(foo: 42) do
       yield 42
     end
-    assert_raises do
+    assert_raises(StandardError) do
       x.bar { |i| i + 1 }
     end
   end
