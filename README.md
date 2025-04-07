@@ -1,13 +1,13 @@
 # Functions as Objects
 
-[![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/others)](http://www.rultor.com/p/yegor256/others)
+[![DevOps By Rultor.com](https://www.rultor.com/b/yegor256/others)](https://www.rultor.com/p/yegor256/others)
 [![We recommend RubyMine](https://www.elegantobjects.org/rubymine.svg)](https://www.jetbrains.com/ruby/)
 
 [![rake](https://github.com/yegor256/others/actions/workflows/rake.yml/badge.svg)](https://github.com/yegor256/others/actions/workflows/rake.yml)
-[![PDD status](http://www.0pdd.com/svg?name=yegor256/others)](http://www.0pdd.com/p?name=yegor256/others)
-[![Gem Version](https://badge.fury.io/rb/others.svg)](http://badge.fury.io/rb/others)
+[![PDD status](https://www.0pdd.com/svg?name=yegor256/others)](https://www.0pdd.com/p?name=yegor256/others)
+[![Gem Version](https://badge.fury.io/rb/others.svg)](https://badge.fury.io/rb/others)
 [![Test Coverage](https://img.shields.io/codecov/c/github/yegor256/others.svg)](https://codecov.io/github/yegor256/others?branch=master)
-[![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://rubydoc.info/github/yegor256/others/master/frames)
+[![Yard Docs](https://img.shields.io/badge/yard-docs-blue.svg)](https://rubydoc.info/github/yegor256/others/master/frames)
 [![Hits-of-Code](https://hitsofcode.com/github/yegor256/others)](https://hitsofcode.com/view/github/yegor256/others)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/others/blob/master/LICENSE.txt)
 
