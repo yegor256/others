@@ -1,4 +1,4 @@
-# Functions as Objects
+# Functions as Objects, in Ruby
 
 [![DevOps By Rultor.com](https://www.rultor.com/b/yegor256/others)](https://www.rultor.com/p/yegor256/others)
 [![We recommend RubyMine](https://www.elegantobjects.org/rubymine.svg)](https://www.jetbrains.com/ruby/)
@@ -38,7 +38,15 @@ assert(x.foo(10) == 11)
 assert(x.bar(42) == 52)
 ```
 
-That's it.
+For example, you can create a decorator that
+intercepts all method calls and logs them:
+
+```ruby
+others(base: original_object) do |*args|
+  puts "Method #{args[0]} called:"
+  @base.__send__(*args)
+end
+```
 
 ## How to contribute
 

@@ -50,7 +50,7 @@ def others(attrs = {}, &block)
       # @raise [RuntimeError] If a block is provided to the method call
       # @return [Object] The result of executing the stored block
       def method_missing(*args)
-        raise 'Block cannot be provided' if block_given?
+        raise "Block cannot be provided in #{args.first}()" if block_given?
         b = self.class.class_variable_get(:@@__others_block__)
         instance_exec(*args, &b)
       end
@@ -92,7 +92,7 @@ def others(attrs = {}, &block)
       # @raise [RuntimeError] If a block is provided to the method call
       # @return [Object] The result of executing the stored block
       def method_missing(*args)
-        raise 'Block cannot be provided' if block_given?
+        raise "Block cannot be provided in #{args.first}()" if block_given?
         instance_exec(*args, &@block)
       end
 
