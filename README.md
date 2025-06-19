@@ -33,6 +33,7 @@ class Foo
     args[1] + 10
   end
 end
+x = Foo.new
 assert(x.foo(10) == 11)
 assert(x.bar(42) == 52)
 ```
