@@ -10,6 +10,9 @@ AllCops:
   TargetRubyVersion: 3.2
   SuggestExtensions: false
   NewCops: enable
+plugins:
+  - rubocop-rake
+  - rubocop-minitest
 Style/OptionalBooleanParameter:
   Enabled: false
 Lint/NestedMethodDefinition:
@@ -19,6 +22,8 @@ Gemspec/RequiredRubyVersion:
 Metrics/MethodLength:
   Enabled: false
 Metrics/AbcSize:
+  Enabled: false
+Minitest/EmptyLineBeforeAssertionMethods:
   Enabled: false
 Metrics/BlockLength:
   Enabled: false
@@ -32,6 +37,3 @@ Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/EndOfLine:
   EnforcedStyle: lf
-require:
-  - rubocop-rake
-  - rubocop-minitest
