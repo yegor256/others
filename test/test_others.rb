@@ -67,6 +67,7 @@ class TestOthers < Minitest::Test
       end
     end
     x = cx.new
+    assert_respond_to(x, :foo)
     assert_equal(43, x.foo(42))
     assert_equal(44, x.bar(42))
   end
