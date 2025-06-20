@@ -33,6 +33,7 @@ class TestOthers < Minitest::Test
 
   def test_as_function_with_args
     x = others(foo: 42) do |*args|
+      raise "Must be just two arg here, given: #{args}" unless args.size == 2
       @foo + args[1]
     end
     assert_equal(97, x.bar(55))
@@ -60,6 +61,7 @@ class TestOthers < Minitest::Test
         abc + 1
       end
       others do |*args|
+        raise "Must be just two arg here, given: #{args}" unless args.size == 2
         args[1] + 2
       end
     end
