@@ -69,6 +69,16 @@ class TestOthers < Minitest::Test
     assert_equal(44, x.bar(42))
   end
 
+  def test_as_class_with_block
+    cx = Class.new do
+      others do |*args|
+        args[1] + args.last.call
+      end
+    end
+    x = cx.new
+    assert_equal(53, x.foo(42) { 11 })
+  end
+
   def test_as_class_setter
     cx = Class.new do
       def initialize(map)
