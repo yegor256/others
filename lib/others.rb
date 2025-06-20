@@ -49,10 +49,9 @@ def others(attrs = {}, &block)
       # @param args [Array] Method name and arguments passed to the undefined method
       # @raise [RuntimeError] If a block is provided to the method call
       # @return [Object] The result of executing the stored block
-      def method_missing(*args)
-        raise "Block cannot be provided in #{args.first}()" if block_given?
+      def method_missing(*args, &block)
         b = self.class.class_variable_get(:@@__others_block__)
-        instance_exec(*args, &b)
+        instance_exec(*args + [block], &b)
       end
 
       # Always returns true to indicate this object responds to any method.
@@ -91,9 +90,8 @@ def others(attrs = {}, &block)
       # @param args [Array] Method name and arguments passed to the undefined method
       # @raise [RuntimeError] If a block is provided to the method call
       # @return [Object] The result of executing the stored block
-      def method_missing(*args)
-        raise "Block cannot be provided in #{args.first}()" if block_given?
-        instance_exec(*args, &@block)
+      def method_missing(*args, &block)
+        instance_exec(*args + [block], &@block)
       end
 
       # Always returns true to indicate this object responds to any method.

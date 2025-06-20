@@ -39,6 +39,13 @@ class TestOthers < Minitest::Test
     assert_equal(97, x.bar(55))
   end
 
+  def test_with_block
+    x = others(foo: 42) do |*args|
+      @foo + args.last.call
+    end
+    assert_equal(55, x.bar { 13 })
+  end
+
   def test_as_function_with_block
     x = others(foo: 42) do
       yield 42
