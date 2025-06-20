@@ -5,6 +5,7 @@
 
 require 'minitest/autorun'
 require_relative '../lib/others'
+require_relative 'test__helper'
 
 # Others main module test.
 # Author:: Yegor Bugayenko (yegor256@gmail.com)
