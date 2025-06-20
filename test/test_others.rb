@@ -28,6 +28,7 @@ class TestOthers < Minitest::Test
       end
     end
     x.foo = 42
+    assert_respond_to(x, :foo)
     assert_equal(42, x.foo)
   end
 
