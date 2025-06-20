@@ -42,10 +42,19 @@ For example, you can create a decorator that
 intercepts all method calls and logs them:
 
 ```ruby
-others(base: original_object) do |*args|
-  puts "Method #{args[0]} called:"
-  @base.__send__(*args)
+logger = others(base: original_object) do |*args, &block|
+  puts "Method #{args[0]} called with #{args[1..-1].inspect}"
+  @base.__send__(*args, &block)
 end
+```
+
+It also supports forwarding blocks:
+
+```ruby
+x = others(foo: 42) do |*args|
+  @foo + args.last.call # this is the block, as the last argument
+end
+puts x.bar { 12 }  # => 54
 ```
 
 ## How to contribute
