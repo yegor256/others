@@ -20,7 +20,7 @@ unless SimpleCov.running
     add_filter 'test/'
     add_filter 'vendor/'
     add_filter 'target/'
-    track_files 'lib/**/*.rb'
+    # track_files 'lib/*.rb'
   end
 end
 
