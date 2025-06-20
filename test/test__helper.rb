@@ -8,7 +8,6 @@ $stdout.sync = true
 require 'simplecov'
 require 'simplecov-cobertura'
 unless SimpleCov.running
-  SimpleCov.command_name('test')
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
     [
       SimpleCov::Formatter::HTMLFormatter,
@@ -22,7 +21,6 @@ unless SimpleCov.running
     add_filter 'vendor/'
     add_filter 'target/'
     track_files 'lib/**/*.rb'
-    track_files '*.rb'
   end
 end
 
