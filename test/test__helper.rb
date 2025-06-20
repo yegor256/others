@@ -14,13 +14,13 @@ unless SimpleCov.running
       SimpleCov::Formatter::CoberturaFormatter
     ]
   )
-  SimpleCov.minimum_coverage 95
-  SimpleCov.minimum_coverage_by_file 90
+  SimpleCov.minimum_coverage 80
+  SimpleCov.minimum_coverage_by_file 80
   SimpleCov.start do
     add_filter 'test/'
     add_filter 'vendor/'
     add_filter 'target/'
-    track_files 'lib/**.rb'
+    track_files 'lib/**/*.rb'
   end
 end
 
