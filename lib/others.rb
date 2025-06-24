@@ -34,6 +34,18 @@ module Kernel
   #   calc.add(2, 3)  # => 5 (defined method)
   #   calc.multiply(2, 3, 4)  # => 24 (caught by others)
   #
+  # @example Handling named parameters
+  #   x = others(foo: 42) do |*args|
+  #     @foo + args[1][:t]
+  #   end
+  #   x.bar(t: 3)  # => 45
+  #
+  # @example Handling both regular and named parameters
+  #   x = others(foo: 42) do |*args|
+  #     @foo + args[1] + args[2][:t]
+  #   end
+  #   x.bar(2, t: 3)  # => 47
+  #
   # @return [Object] An instance that responds to any method call
   #
   # Author:: Yegor Bugayenko (yegor256@gmail.com)

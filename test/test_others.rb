@@ -18,6 +18,20 @@ class TestOthers < Minitest::Test
     assert_equal(43, x.bar)
   end
 
+  def test_with_named_params
+    x = others(foo: 42) do |*args|
+      @foo + args[1][:t]
+    end
+    assert_equal(45, x.bar(t: 3))
+  end
+
+  def test_with_regular_and_named_params
+    x = others(foo: 42) do |*args|
+      @foo + args[1] + args[2][:t]
+    end
+    assert_equal(47, x.bar(2, t: 3))
+  end
+
   def test_as_function_setter
     x = others(map: {}) do |*args|
       k = args[0].to_s
