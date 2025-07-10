@@ -6,19 +6,12 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    ansi (1.5.0)
     ast (2.4.3)
-    builder (3.3.0)
     docile (1.4.1)
     json (2.12.2)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     minitest (5.25.5)
-    minitest-reporters (1.7.1)
-      ansi
-      builder
-      minitest (>= 5.0)
-      ruby-progressbar
     parallel (1.27.0)
     parser (3.3.8.0)
       ast (~> 2.4.1)
@@ -29,7 +22,7 @@ GEM
     rake (13.3.0)
     regexp_parser (2.10.0)
     rexml (3.4.1)
-    rubocop (1.76.2)
+    rubocop (1.78.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -54,6 +47,9 @@ GEM
     rubocop-rake (0.7.1)
       lint_roller (~> 1.1)
       rubocop (>= 1.72.1)
+    rubocop-rspec (3.6.0)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
     ruby-progressbar (1.13.0)
     simplecov (0.22.0)
       docile (~> 1.1)
@@ -79,13 +75,13 @@ PLATFORMS
 
 DEPENDENCIES
   minitest (~> 5.24)
-  minitest-reporters (~> 1.7)
   others!
   rake (~> 13.2)
   rubocop (~> 1.65)
-  rubocop-minitest (~> 0.38)
-  rubocop-performance (~> 1.0)
-  rubocop-rake (~> 0.7)
+  rubocop-minitest (> 0)
+  rubocop-performance (> 0)
+  rubocop-rake (> 0)
+  rubocop-rspec (> 0)
   simplecov (~> 0.22)
   simplecov-cobertura (~> 2.1)
   yard (~> 0.9)
