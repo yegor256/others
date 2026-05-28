@@ -13,6 +13,7 @@ AllCops:
 plugins:
   - rubocop-rake
   - rubocop-minitest
+  - rubocop-elegant
 Style/OptionalBooleanParameter:
   Enabled: false
 Lint/NestedMethodDefinition:
@@ -37,3 +38,13 @@ Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/EndOfLine:
   EnforcedStyle: lf
+Layout/EmptyLineBetweenDefs:
+  Enabled: false
+Elegant/GoodMethodName:
+  AllowedNames:
+    - method_missing
+    - respond_to?
+    - respond_to_missing?
+Elegant/NoRedundantVariable:
+  Exclude:
+    - 'test/**/*'

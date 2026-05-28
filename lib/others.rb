@@ -54,21 +54,16 @@ module Kernel
   def others(attrs = {}, &block)
     if is_a?(Class)
       class_exec(block) do |b|
-        # rubocop:disable Style/ClassVars
         class_variable_set(:@@__others_block__, b)
-        # rubocop:enable Style/ClassVars
-
         # Handles all undefined method calls by executing the stored block.
         #
         # @param args [Array] Method name and arguments passed to the undefined method
         # @raise [RuntimeError] If a block is provided to the method call
         # @return [Object] The result of executing the stored block
         def method_missing(*args, &block)
-          b = self.class.class_variable_get(:@@__others_block__)
           args += [block] if block_given?
-          instance_exec(*args, &b)
+          instance_exec(*args, &self.class.class_variable_get(:@@__others_block__))
         end
-
         # Always returns true to indicate this object responds to any method.
         #
         # @param _mtd [Symbol, String] The method name being queried
@@ -77,7 +72,6 @@ module Kernel
         def respond_to?(_mtd, _inc = false)
           true
         end
-
         # Indicates that any missing method should be considered as responding.
         #
         # @param _mtd [Symbol, String] The method name being queried
@@ -88,18 +82,11 @@ module Kernel
         end
       end
     else
-      c = Class.new do
+      Class.new do
         def initialize(attrs, &block)
-          # rubocop:disable Style/HashEachMethods
-          # rubocop:disable Lint/UnusedBlockArgument
-          attrs.each do |k, v|
-            instance_eval("@#{k} = v", __FILE__, __LINE__) # @foo = v
-          end
-          # rubocop:enable Style/HashEachMethods
-          # rubocop:enable Lint/UnusedBlockArgument
+          attrs.each { |k, v| instance_variable_set(:"@#{k}", v) }
           @block = block
         end
-
         # Handles all undefined method calls by executing the stored block.
         #
         # @param args [Array] Method name and arguments passed to the undefined method
@@ -109,7 +96,6 @@ module Kernel
           args += [block] if block_given?
           instance_exec(*args, &@block)
         end
-
         # Always returns true to indicate this object responds to any method.
         #
         # @param _mtd [Symbol, String] The method name being queried
@@ -118,7 +104,6 @@ module Kernel
         def respond_to?(_mtd, _inc = false)
           true
         end
-
         # Indicates that any missing method should be considered as responding.
         #
         # @param _mtd [Symbol, String] The method name being queried
@@ -127,8 +112,7 @@ module Kernel
         def respond_to_missing?(_mtd, _inc = false)
           true
         end
-      end
-      c.new(attrs, &block)
+      end.new(attrs, &block)
     end
   end
 end
