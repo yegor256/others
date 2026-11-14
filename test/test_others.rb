@@ -105,6 +105,21 @@ class TestOthers < Minitest::Test
     assert_equal(53, x.foo(42) { 11 })
   end
 
+  def test_subclass_keeps_parent_block
+    parent =
+      Class.new do
+        others { |*| :parent }
+      end
+    child =
+      Class.new(parent) do
+        others { |*| :child }
+      end
+    assert_equal(:parent, parent.new.speak)
+    assert_equal(:child, child.new.speak)
+    assert_equal(:parent, Class.new(parent).new.speak)
+    assert_equal(:child, Class.new(child).new.speak)
+  end
+
   def test_as_class_setter
     cx =
       Class.new do

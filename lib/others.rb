@@ -54,7 +54,7 @@ module Kernel
   def others(attrs = {}, &block)
     if is_a?(Class)
       class_exec(block) do |b|
-        class_variable_set(:@@__others_block__, b)
+        instance_variable_set(:@__others_block__, b)
         # Handles all undefined method calls by executing the stored block.
         #
         # @param args [Array] Method name and arguments passed to the undefined method
@@ -62,7 +62,12 @@ module Kernel
         # @return [Object] The result of executing the stored block
         def method_missing(*args, &block)
           args += [block] if block_given?
-          instance_exec(*args, &self.class.class_variable_get(:@@__others_block__))
+          instance_exec(
+            *args,
+            &self.class.ancestors
+              .find { |ancestor| ancestor.instance_variable_defined?(:@__others_block__) }
+              .instance_variable_get(:@__others_block__)
+          )
         end
         # Always returns true to indicate this object responds to any method.
         #
